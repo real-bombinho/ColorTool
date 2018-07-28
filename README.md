@@ -9,3 +9,5 @@ It is overloaded with a similar TColor method allowing to be called regardless t
 A window displaying the colour and numeric values is created. A number of Windows Colour Schemes are
 available via right click on the colour sample to change system colours.
 The string can be used to identify popups from different calling positions.
+
+Exposure of Methods has been kept minimal.
