@@ -1,17 +1,19 @@
 object Tool: TTool
   Left = 0
   Top = 0
+  BorderStyle = SizeToolWin
   Caption = 'ColourTool'
-  ClientHeight = 280
+  ClientHeight = 325
   ClientWidth = 393
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
   DesignerMasterStyle = 0
   object Layout1: TLayout
     Align = Top
     Size.Width = 393.000000000000000000
-    Size.Height = 273.000000000000000000
+    Size.Height = 321.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 0
     OnResize = Layout1Resize
@@ -53,7 +55,7 @@ object Tool: TTool
       Position.Y = 72.000000000000000000
     end
     object Label10: TLabel
-      Position.X = 56.000000000000000000
+      Position.X = 64.000000000000000000
       Position.Y = 200.000000000000000000
       Size.Width = 37.000000000000000000
       Size.Height = 17.000000000000000000
@@ -63,7 +65,7 @@ object Tool: TTool
       TabOrder = 9
     end
     object Label9: TLabel
-      Position.X = 56.000000000000000000
+      Position.X = 64.000000000000000000
       Position.Y = 184.000000000000000000
       Size.Width = 37.000000000000000000
       Size.Height = 17.000000000000000000
@@ -73,7 +75,7 @@ object Tool: TTool
       TabOrder = 10
     end
     object Label8: TLabel
-      Position.X = 56.000000000000000000
+      Position.X = 64.000000000000000000
       Position.Y = 168.000000000000000000
       Size.Width = 37.000000000000000000
       Size.Height = 17.000000000000000000
@@ -83,7 +85,7 @@ object Tool: TTool
       TabOrder = 11
     end
     object Label7: TLabel
-      Position.X = 56.000000000000000000
+      Position.X = 64.000000000000000000
       Position.Y = 152.000000000000000000
       Size.Width = 37.000000000000000000
       Size.Height = 17.000000000000000000
@@ -144,6 +146,7 @@ object Tool: TTool
       TabOrder = 1
     end
     object PaintBox1: TPaintBox
+      PopupMenu = PopupMenu1
       Position.X = 32.000000000000000000
       Position.Y = 72.000000000000000000
       Size.Width = 65.000000000000000000
@@ -159,17 +162,9 @@ object Tool: TTool
       Size.PlatformDefault = False
       TabOrder = 17
     end
-    object SpeedButton1: TSpeedButton
-      Position.X = 296.000000000000000000
-      Position.Y = 16.000000000000000000
-      Size.Width = 48.000000000000000000
-      Size.Height = 22.000000000000000000
-      Size.PlatformDefault = False
-      Text = 'Close'
-    end
     object Edit5: TEdit
       Touch.InteractiveGestures = [LongTap, DoubleTap]
-      TabOrder = 19
+      TabOrder = 18
       ReadOnly = True
       Position.X = 128.000000000000000000
       Position.Y = 216.000000000000000000
@@ -183,8 +178,241 @@ object Tool: TTool
       Size.Width = 113.000000000000000000
       Size.Height = 17.000000000000000000
       Size.PlatformDefault = False
-      Text = 'AlphaColor Name'
+      Text = 'Color Name'
       TabOrder = 2
+    end
+    object Button1: TButton
+      Position.X = 152.000000000000000000
+      Position.Y = 272.000000000000000000
+      TabOrder = 20
+      Text = 'OK'
+      OnClick = Button1Click
+    end
+    object Label14: TLabel
+      StyledSettings = [Family, Style]
+      Hint = 'System color, value estimated.'
+      PopupMenu = PopupMenu1
+      Position.X = 8.000000000000000000
+      Position.Y = 72.000000000000000000
+      Size.Width = 25.000000000000000000
+      Size.Height = 65.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 48.000000000000000000
+      TextSettings.FontColor = claOrangered
+      TextSettings.HorzAlign = Center
+      Text = '!'
+      Visible = False
+      TabOrder = 19
+      OnMouseUp = Label14MouseUp
+    end
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 40
+    Top = 256
+    object MenuItem1: TMenuItem
+      Text = 'Windows 8(.1)'
+      object MenuItem5: TMenuItem
+        Locked = True
+        Text = 'MenuItem5'
+        OnClick = MenuItem5Click
+      end
+      object MenuItem6: TMenuItem
+        Locked = True
+        Text = 'MenuItem6'
+        OnClick = MenuItem5Click
+      end
+      object MenuItem7: TMenuItem
+        Locked = True
+        Text = 'MenuItem7'
+        OnClick = MenuItem5Click
+      end
+      object MenuItem8: TMenuItem
+        Locked = True
+        Text = 'MenuItem8'
+      end
+      object MenuItem14: TMenuItem
+        Locked = True
+        Text = 'MenuItem14'
+      end
+    end
+    object MenuItem2: TMenuItem
+      Text = 'Windows 7'
+      object MenuItem9: TMenuItem
+        Locked = True
+        Text = 'MenuItem9'
+      end
+      object MenuItem10: TMenuItem
+        Locked = True
+        Text = 'MenuItem10'
+      end
+      object MenuItem11: TMenuItem
+        Locked = True
+        Text = 'MenuItem11'
+      end
+      object MenuItem12: TMenuItem
+        Locked = True
+        Text = 'MenuItem12'
+      end
+      object MenuItem13: TMenuItem
+        Locked = True
+        Text = 'MenuItem13'
+      end
+      object MenuItem15: TMenuItem
+        Locked = True
+        Text = 'MenuItem15'
+      end
+    end
+    object MenuItem3: TMenuItem
+      Text = 'Windows Vista'
+      object MenuItem16: TMenuItem
+        Locked = True
+        Text = 'MenuItem16'
+      end
+      object MenuItem17: TMenuItem
+        Locked = True
+        Text = 'MenuItem17'
+      end
+      object MenuItem18: TMenuItem
+        Locked = True
+        Text = 'MenuItem18'
+      end
+      object MenuItem19: TMenuItem
+        Locked = True
+        Text = 'MenuItem19'
+      end
+      object MenuItem20: TMenuItem
+        Locked = True
+        Text = 'MenuItem20'
+      end
+      object MenuItem21: TMenuItem
+        Locked = True
+        Text = 'MenuItem21'
+      end
+      object MenuItem22: TMenuItem
+        Locked = True
+        Text = 'MenuItem22'
+      end
+    end
+    object MenuItem4: TMenuItem
+      Text = 'Windows XP'
+      object MenuItem23: TMenuItem
+        Locked = True
+        Text = 'MenuItem23'
+        OnClick = MenuItem5Click
+      end
+      object MenuItem24: TMenuItem
+        Locked = True
+        Text = 'MenuItem24'
+      end
+      object MenuItem25: TMenuItem
+        Locked = True
+        Text = 'MenuItem25'
+      end
+      object MenuItem26: TMenuItem
+        Locked = True
+        Text = 'MenuItem26'
+      end
+      object MenuItem27: TMenuItem
+        Locked = True
+        Text = 'MenuItem27'
+      end
+      object MenuItem28: TMenuItem
+        Locked = True
+        Text = 'MenuItem28'
+      end
+      object MenuItem29: TMenuItem
+        Locked = True
+        Text = 'MenuItem29'
+      end
+      object MenuItem30: TMenuItem
+        Locked = True
+        Text = 'MenuItem30'
+        OnClick = MenuItem5Click
+      end
+      object MenuItem31: TMenuItem
+        Locked = True
+        Text = 'MenuItem31'
+      end
+      object MenuItem32: TMenuItem
+        Locked = True
+        Text = 'MenuItem32'
+      end
+      object MenuItem33: TMenuItem
+        Locked = True
+        Text = 'MenuItem33'
+      end
+      object MenuItem34: TMenuItem
+        Locked = True
+        Text = 'MenuItem34'
+      end
+      object MenuItem35: TMenuItem
+        Locked = True
+        Text = 'MenuItem35'
+      end
+      object MenuItem36: TMenuItem
+        Locked = True
+        Text = 'MenuItem36'
+      end
+      object MenuItem37: TMenuItem
+        Locked = True
+        Text = 'MenuItem37'
+      end
+      object MenuItem38: TMenuItem
+        Locked = True
+        Text = 'MenuItem38'
+      end
+      object MenuItem39: TMenuItem
+        Locked = True
+        Text = 'MenuItem39'
+      end
+      object MenuItem40: TMenuItem
+        Locked = True
+        Text = 'MenuItem40'
+      end
+      object MenuItem41: TMenuItem
+        Locked = True
+        Text = 'MenuItem41'
+      end
+      object MenuItem42: TMenuItem
+        Locked = True
+        Text = 'MenuItem42'
+      end
+      object MenuItem43: TMenuItem
+        Locked = True
+        Text = 'MenuItem43'
+      end
+      object MenuItem44: TMenuItem
+        Locked = True
+        Text = 'MenuItem44'
+      end
+      object MenuItem45: TMenuItem
+        Locked = True
+        Text = 'MenuItem45'
+      end
+      object MenuItem46: TMenuItem
+        Locked = True
+        Text = 'MenuItem46'
+      end
+      object MenuItem47: TMenuItem
+        Locked = True
+        Text = 'MenuItem47'
+      end
+      object MenuItem48: TMenuItem
+        Locked = True
+        Text = 'MenuItem48'
+      end
+      object MenuItem49: TMenuItem
+        Locked = True
+        Text = 'MenuItem49'
+      end
+      object MenuItem50: TMenuItem
+        Locked = True
+        Text = 'MenuItem50'
+      end
+      object MenuItem51: TMenuItem
+        Locked = True
+        Text = 'MenuItem51'
+      end
     end
   end
 end
