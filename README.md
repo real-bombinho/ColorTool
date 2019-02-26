@@ -13,3 +13,6 @@ The message string can be used to identify popups from different calling positio
 It is displayed in the window and has no other purpose.
 
 Exposure of Methods has been kept minimal.
+
+Just add unit to uses clause and call tool.showcolor where needed to visualize the colour.
+Can help converting VCL to FMX.
