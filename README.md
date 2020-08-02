@@ -1,5 +1,5 @@
 # ColorTool
-Popup for easier debugging of colour issues in delphi (10.2)
+Popup for easier debugging of colour issues in delphi (XE2, 10.2) 
 
 This little tool has been created to be able to visually track colours on conversion.
 
