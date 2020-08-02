@@ -10,10 +10,17 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Objects,
-  FMX.StdCtrls, FMX.Controls.Presentation, FMX.Edit, FMX.Layouts, FMX.Menus;
+  FMX.Types, FMX.Controls, FMX.Forms,  FMX.Dialogs, FMX.Objects,
+  {$IF CompilerVersion > 24}
+  FMX.StdCtrls, FMX.Controls.Presentation, FMX.Graphics,
+  {$IFEND}
+  {$IFDEF VER230}
+  System.Generics.Collections,
+  {$ENDIF}
+  FMX.Edit, FMX.Layouts, FMX.Menus;
 
 type
+
   TTool = class(TForm)
     Layout1: TLayout;
     Edit1: TEdit;
@@ -118,6 +125,23 @@ implementation
 {$R *.fmx}
 
 type
+
+{$IFDEF VER230}
+  TMenuItemXE2 = class(TMenuItem)
+  protected
+    function getItem(Aindex: integer): TMenuItem;
+  public
+    property Items[Aindex: integer]: TMenuItem read getItem;
+  end;
+
+  TPopupMenuXE2 = class(TPopupMenu)
+  protected
+    function getItem(Aindex: integer): TMenuItemXE2;
+  public
+    property Items[Aindex: integer]: TMenuItemXE2 read getItem;
+  end;
+{$ENDIF}
+
   ColorScheme = (Aero, Classic);
 
   CSchemes = Array[0..29] of TColor;
@@ -444,27 +468,51 @@ var i: integer;
 begin
   for i := 0 to 4 do
   begin
+{$IFDEF VER230}
+    TPopupMenuXE2(popupmenu1).Items[0].Items[i].Text := Win8Schemes[i].Name;
+    TPopupMenuXE2(popupmenu1).Items[0].Items[i].OnClick := MenuItem5Click;
+    TPopupMenuXE2(popupmenu1).Items[0].Items[i].Name := 'Win8' + inttostr(i);
+{$ELSE}
     popupmenu1.Items[0].Items[i].Text:= Win8Schemes[i].Name;
     popupMenu1.Items[0].Items[i].OnClick := MenuItem5Click;
     popupMenu1.Items[0].Items[i].Name := 'Win8' + inttostr(i);
+{$ENDIF}
   end;
   for i := 0 to 5 do
   begin
+{$IFDEF VER230}
+    TPopupMenuXE2(popupmenu1).Items[1].Items[i].Text := Win8Schemes[i].Name;
+    TPopupMenuXE2(popupmenu1).Items[1].Items[i].OnClick := MenuItem5Click;
+    TPopupMenuXE2(popupmenu1).Items[1].Items[i].Name := 'Win7' + inttostr(i);
+{$ELSE}
     popupmenu1.Items[1].Items[i].Text:= Win7Schemes[i].Name;
     popupMenu1.Items[1].Items[i].OnClick := MenuItem5Click;
     popupMenu1.Items[1].Items[i].Name := 'Win7' + inttostr(i);
+{$ENDIF}
   end;
   for i := 0 to 6 do
   begin
+{$IFDEF VER230}
+    TPopupMenuXE2(popupmenu1).Items[2].Items[i].Text := WinVisSchemes[i].Name;
+    TPopupMenuXE2(popupmenu1).Items[2].Items[i].OnClick := MenuItem5Click;
+    TPopupMenuXE2(popupmenu1).Items[2].Items[i].Name := 'WinV' + inttostr(i);
+{$ELSE}
     popupmenu1.Items[2].Items[i].Text:= WinVisSchemes[i].Name;
     popupMenu1.Items[2].Items[i].OnClick := MenuItem5Click;
     popupMenu1.Items[2].Items[i].Name := 'WinV' + inttostr(i);
+{$ENDIF}
   end;
   for i := 0 to 28 do
   begin
+{$IFDEF VER230}
+    TPopupMenuXE2(popupmenu1).Items[3].Items[i].Text := WinXPSchemes[i].Name;
+    TPopupMenuXE2(popupmenu1).Items[3].Items[i].OnClick := MenuItem5Click;
+    TPopupMenuXE2(popupmenu1).Items[3].Items[i].Name := 'WinX' + inttostr(i);
+{$ELSE}
     popupmenu1.Items[3].Items[i].Text:= WinXPSchemes[i].Name;
     popupMenu1.Items[3].Items[i].OnClick := MenuItem5Click;
     popupMenu1.Items[3].Items[i].Name := 'WinX' + inttostr(i);
+{$ENDIF}
   end;
 end;
 
@@ -473,7 +521,11 @@ var r: TRectF;
 begin
   r := PaintBox1.ClipRect;
 //  R.Create(x, y, x + PaintBox1.Width, y + PaintBox1.Height);
+{$IFDEF VER230}
+  Canvas.Fill.Kind := TBrushKind.bkSolid;
+{$ELSE}
   Canvas.Fill.Kind := TBrushKind.Solid;
+{$ENDIF}
   Canvas.Fill.Color := Spot;
   Canvas.FillRect(r, 0, 0, AllCorners, 100);
 end;
@@ -982,6 +1034,33 @@ begin
     $FF00001D: result := 'clMenuHighlight';
     $FF00001E: result := 'clMenuBar';
   end;
+end;
+
+{ TPopupMenuXE2 }
+
+function TPopupMenuXE2.getItem(AIndex: integer): TMenuItemXE2;
+var
+  i, C: Integer;
+begin
+  Result := nil;
+  C := 0;
+  for i := 0 to ChildrenCount - 1 do
+    if Children[i] is TMenuItem then
+    begin
+      if C = AIndex then
+      begin
+        Result := TMenuItemXE2(Children[i]);
+        Break;
+      end;
+      C := C + 1;
+    end;
+end;
+
+{ TMenuItemXE2 }
+
+function TMenuItemXE2.getItem(Aindex: integer): TMenuItem;
+begin
+  Result := inherited GetItem(Aindex) as TMenuItem;
 end;
 
 initialization
